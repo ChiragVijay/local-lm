@@ -1,73 +1,35 @@
-# React + TypeScript + Vite
+# LocalLM
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A privacy-first AI chat application that runs large language models entirely on your device. Choose between browser-based inference with Google's Gemma models via MediaPipe or self-hosted inference with Ollama.
 
-Currently, two official plugins are available:
+A hosted version is available at [https://locallm.chiragvijay.com](https://locallm.chiragvijay.com).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![LocalLM Screenshot](/assets/welcome.png)
 
-## React Compiler
+## Core Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Multiple Inference Backends** — Run models via Google MediaPipe (browser-based with Gemma) or connect to a local Ollama instance
+- **Privacy First** — All conversations stay on your device; full offline support with IndexedDB storage
+- **WebGPU Acceleration** — Leverage GPU acceleration in the browser for faster inference with MediaPipe
+- **Real-time Streaming** — See responses generate token-by-token with live generation stats
+- **Multi-Chat Support** — Organize conversations into projects with persistent storage
+- **Modern UI** — Clean, responsive interface with dark/light theme switching and smooth animations
 
-## Expanding the ESLint configuration
+## Inference Methods
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Google MediaPipe + Gemma (Browser-Based)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Run Google's efficient Gemma models directly in your browser with hardware acceleration:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- **Gemma 2B** — Lightweight, perfect for quick responses
+- **Gemma 4B** — Balanced performance and quality
+- **No Server Required** — 100% client-side, completely offline after downloading the model
+- **WebGPU Powered** — Automatic GPU acceleration when available, falls back to WASM
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Ollama (Self-Hosted)
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Connect to a local Ollama instance for flexible model selection and faster inference:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **Any Ollama Model** — Access the full Ollama model library (Llama, Mistral, neural-chat, etc.)
+- **Local Server** — Run `ollama serve` on your machine
+- **Flexible** — Swap models without reloading the app
